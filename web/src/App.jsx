@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowCounterClockwise, ArrowsOut, Check, Cube, Info, List, MagnifyingGlass, Moon, Pause, Play, Sun, X } from '@phosphor-icons/react';
 import { TwinViewer } from './engine.js';
+import { OPERATION_VIEWS } from './operations.js';
 
 const CHAPTERS = [
   { id: 'EXTERIOR', title: '廠房外觀', floor: 'ALL', cutaway: false, label: '全區', description: '從 A、B 兩區與中央通廊，認識全廠的空間配置。' },
@@ -59,6 +60,11 @@ export default function App() {
   const [exploded, setExploded] = useState(false);
   const [query, setQuery] = useState('');
   const [quality, setQuality] = useState('auto');
+  const [operating, setOperating] = useState(() => !matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [operationSpeed,setOperationSpeed]=useState(1);
+  const [flow,setFlow]=useState(false);
+  const [operationView,setOperationView]=useState('');
+  const [operationStatus,setOperationStatus]=useState('');
   const [selected, setSelected] = useState(null);
   const [note, setNote] = useState('');
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -82,7 +88,7 @@ export default function App() {
 
   useEffect(() => {
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
-    const change = (event) => { setReducedMotion(event.matches); if (event.matches) pauseRef.current('已啟用減少動態，請使用上一站與下一站。'); };
+    const change = (event) => { setReducedMotion(event.matches); if (event.matches) {setOperating(false);pauseRef.current('已啟用減少動態，設備運轉與鏡頭已暫停。');} };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);
   }, []);
@@ -131,6 +137,8 @@ export default function App() {
     viewerRef.current?.setTheme(theme);
   }, [theme, loaded]);
 
+  useEffect(()=>{if(!loaded)return;const timer=setInterval(()=>{const op=viewerRef.current?.operations;if(op)setOperationStatus(operationView==='OHT'?op.oht[0].state.phase:operationView==='LOGISTICS'?op.traffic.phase:'');},500);return()=>clearInterval(timer);},[loaded,operationView]);
+
   const applyChapter = useCallback((index, continuePlaying = false) => {
     if (!loaded || error) return;
     const item = CHAPTERS[index];
@@ -140,6 +148,7 @@ export default function App() {
     playingRef.current = continuePlaying && !reducedMotion;
     setPlaying(playingRef.current);
     setChapter(index);
+    setOperationView('');
     setFinished(false);
     setSelected(null);
     setMode('tour');
@@ -162,6 +171,7 @@ export default function App() {
     setPlaying(false);
     remainingRef.current = DURATION;
     setChapter(-1);
+    setOperationView('');
     setFloor('ALL');
     setSystem('ALL');
     setCutaway(true);
@@ -258,6 +268,7 @@ export default function App() {
     setExploded(false);
     setSelected(null);
     setChapter(-1);
+    setOperationView('');
     setFinished(false);
     setNote(`顯示${FLOORS.find((item) => item.id === value)?.detail || value}。`);
   };
@@ -302,6 +313,14 @@ export default function App() {
     setMobileOpen(false);
   };
 
+  const changeOperating = value => {setOperating(value);viewerRef.current?.operations?.setEnabled(value);};
+  const changeFlow = value => {setFlow(value);viewerRef.current?.operations?.setFlow(value);};
+  const focusOperation = key => {
+    pauseTour();const view=OPERATION_VIEWS[key];viewerRef.current.focusOperation(key);
+    setMode('explore');setChapter(-1);setFinished(false);setFloor(view.floor);setSystem('ALL');setExploded(false);setCutaway(view.floor!=='ALL');setSelected(null);setOperationView(key);setMobileOpen(false);
+    setFlow(viewerRef.current.operations.flow);setNote(`已前往${view.title}，設備運轉與鏡頭導覽可分別暫停。`);
+  };
+
   const fullscreen = async () => {
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
@@ -337,6 +356,13 @@ export default function App() {
         </div>
 
         <div className="rail-scroll">
+          <section className="operation-panel" aria-label="廠區示範運轉">
+            <div className="operation-heading"><h2>廠區運轉</h2><span>示範情境</span></div>
+            <div className="operation-playback"><button type="button" className="operation-play" disabled={!loaded||!!error} onClick={()=>changeOperating(!operating)} aria-pressed={operating}>{operating?<Pause {...ICON} />:<Play {...ICON} />}<span>{operating?'暫停設備':'啟動設備'}</span></button><label className="operation-speed"><span>速度</span><select aria-label="運轉速度" value={operationSpeed} disabled={!loaded||!!error} onChange={e=>{setOperationSpeed(Number(e.target.value));viewerRef.current.operations.setSpeed(e.target.value);}}><option value="0.5">0.5×</option><option value="1">1×</option><option value="2">2×</option></select></label></div>
+            <div className="operation-views" role="group" aria-label="運轉近景">{Object.entries(OPERATION_VIEWS).map(([key,view])=><button key={key} type="button" className={operationView===key?'active':''} disabled={!loaded||!!error} onClick={()=>focusOperation(key)}>{view.title}<ArrowRight {...ICON} size={12}/></button>)}</div>
+            <Toggle checked={flow} onChange={changeFlow} label="顯示流向" hint="示意標記，非流體計算" disabled={!loaded||!!error}/>
+            <p className="operation-disclaimer">依設備原理模擬，未連接即時資料。<a href={publicUrl('sources/OPERATING_MODES.md')} target="_blank" rel="noreferrer">運轉依據</a></p>
+          </section>
           {mode === 'tour' ? <section className="tour-panel" aria-label="導覽章節">
             <button className="primary-button tour-start" type="button" disabled={!loaded || !!error} onClick={startOrPause}>{playing ? <Pause {...ICON} weight="fill" /> : <Play {...ICON} weight="fill" />}<span>{actionLabel}</span></button>
             <p className="tour-duration">{reducedMotion ? '逐站檢視，減少鏡頭動態' : '六個視角，約 72 秒'}</p>
@@ -369,6 +395,7 @@ export default function App() {
           {error ? <div className="loading-message error-message" role="alert"><h2>暫時無法載入互動模型</h2><p>{error}</p><div className="loading-actions"><button className="primary-button" type="button" onClick={() => location.reload()}><ArrowCounterClockwise {...ICON} />重新載入</button><a href={publicUrl('gallery/HERO.webp')} target="_blank" rel="noreferrer">查看渲染總覽<ArrowRight {...ICON} size={16} /></a></div></div> : <div className="loading-message" role="status"><span className="load-eyebrow">準備進入全廠</span><h2>{loadLabel}</h2><div className="load-progress" role="progressbar" aria-label="模型載入進度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(ratio * 100)}><span style={{ transform: `scaleX(${ratio})` }} /></div><p><span>{Math.round(ratio * 100)}%</span><span>首次載入需要下載模型</span></p></div>}
         </div>
 
+        {loaded&&!error&&<button className="operation-badge" type="button" onClick={()=>changeOperating(!operating)} aria-label={operating?'暫停設備運轉':'啟動設備運轉'}><span className={operating?'operation-dot active':'operation-dot'}/>{operating?'示範運轉中':'設備已暫停'}{operating?<Pause {...ICON} size={13}/>:<Play {...ICON} size={13}/>}</button>}
         <div className="viewport-topline"><span className="view-mode-label">{mode === 'tour' ? playing ? '導覽中' : finished ? '導覽完成' : chapter >= 0 ? '導覽已暫停' : '導覽視角' : '自由探索'}</span><span className="view-floor">{floor === 'ALL' ? '全廠' : floorName(floor)}</span></div>
         <div id="viewer-controls" className="viewport-tools" tabIndex={-1} aria-label="模型操作">
           <button type="button" className="tool-button" disabled={!loaded || !!error} onClick={() => returnOverview()} title="返回總覽" aria-label="返回全廠總覽"><ArrowCounterClockwise {...ICON} /></button>
@@ -379,7 +406,7 @@ export default function App() {
         {selected && loaded && <section className="asset-detail" aria-label="設備資訊"><div className="detail-heading"><span>設備資訊</span><button type="button" className="icon-button" onClick={() => { setSelected(null); viewerRef.current?.clearSelection?.(); }} aria-label="關閉設備資訊"><X {...ICON} size={17} /></button></div><h2>{selected.label || selected.name || selected.id}</h2><dl><div><dt>樓層</dt><dd>{floorName(selected.floor)}</dd></div><div><dt>系統</dt><dd>{selected.system || '未提供'}</dd></div>{selected.tags && <div><dt>設備標記</dt><dd>{Array.isArray(selected.tags) ? selected.tags.join(', ') : selected.tags}</dd></div>}<div className="source-id"><dt>來源 ID</dt><dd>{selected.id}</dd></div></dl><p>依設計資料建立</p></section>}
 
         <div className="viewport-bottom">
-          <div className="scene-caption"><h2>{mode === 'tour' && currentChapter ? currentChapter.title : finished ? '全廠導覽完成' : floor === 'ALL' ? overviewTitle : `${floorName(floor)} ${FLOORS.find((item) => item.id === floor)?.detail || ''}`}</h2><p>{mode === 'tour' && currentChapter ? currentChapter.description : finished ? '重播導覽，或自由查看感興趣的設備與樓層。' : '旋轉、縮放，從整體配置走近設備細節。'}</p></div>
+          <div className="scene-caption"><h2>{operationView ? OPERATION_VIEWS[operationView].title : mode === 'tour' && currentChapter ? currentChapter.title : finished ? '全廠導覽完成' : floor === 'ALL' ? overviewTitle : `${floorName(floor)} ${FLOORS.find((item) => item.id === floor)?.detail || ''}`}</h2><p>{operationView ? ({OHT:'沿既有軌道停靠、升降與移交 FOUP。',LOGISTICS:'減速停等、閘門放行、車尾離開後關閉。',DOORS:'裝卸門依開啟、保持與關閉順序循環。',AIR:'FFU 葉輪持續旋轉，箭頭表示進風方向。',ROOF:'排氣風機持續運轉，轉速採便於辨識的視覺示意。',UTILITIES:'PCW 供回水方向示意，管線與機殼保持固定。'}[operationView]+(operationStatus?' '+operationStatus+'。':'')) : mode === 'tour' && currentChapter ? currentChapter.description : finished ? '重播導覽，或自由查看感興趣的設備與樓層。' : '旋轉、縮放，從整體配置走近設備細節。'}</p></div>
           {mode === 'tour' && chapter >= 0 && <div className="tour-transport" aria-label="導覽播放控制"><button className="icon-button" type="button" aria-label="上一站" title="上一站" disabled={!loaded || !!error || chapter === 0} onClick={() => applyChapter(chapter - 1, playing)}><ArrowLeft {...ICON} /></button><button type="button" className="icon-button transport-play" disabled={!loaded || !!error} aria-label={actionLabel} title={actionLabel} onClick={startOrPause}>{playing ? <Pause {...ICON} weight="fill" /> : <Play {...ICON} weight="fill" />}</button><span className="tour-position">{chapter + 1}<span> / {CHAPTERS.length}</span></span><button className="icon-button" type="button" disabled={!loaded || !!error} aria-label={chapter === CHAPTERS.length - 1 ? '完成導覽' : '下一站'} title={chapter === CHAPTERS.length - 1 ? '完成導覽' : '下一站'} onClick={() => chapter === CHAPTERS.length - 1 ? returnOverview(true) : applyChapter(chapter + 1, playing)}>{chapter === CHAPTERS.length - 1 ? <Check {...ICON} /> : <ArrowRight {...ICON} />}</button></div>}
           <p className="interaction-hint">拖曳旋轉<span>滾輪縮放</span><span>右鍵平移</span></p>
         </div>
@@ -388,6 +415,6 @@ export default function App() {
     </div>
     <div className="status-announcement" role="status" aria-live="polite">{note}</div>
 
-    <dialog className="about-dialog" ref={dialogRef} onCancel={() => setAboutOpen(false)} onClick={(event) => { if (event.target === event.currentTarget) setAboutOpen(false); }} aria-labelledby="about-title"><div className="about-content"><div className="dialog-heading"><h2 id="about-title">關於這個模型</h2><button type="button" className="icon-button" onClick={() => setAboutOpen(false)} aria-label="關閉說明"><X {...ICON} /></button></div><p className="about-lead">以最終 Blender 模型建立的 FAB-1 互動展示。</p><p>本模型依設計資料建立，保留設備與管線配置，並補充材質、廠房外殼及近景細節。未取得實測或原廠尺寸的構件採推導尺寸。</p><p>目前未接入即時感測資料，並非已驗證的竣工模型。設備面板展示的是模型資料。</p><div className="about-facts"><div><span>建築基準尺寸</span><strong>250 × 90 m</strong></div><div><span>檢視樓層</span><strong>B1 / 1F / 2F / RF</strong></div></div><h3>操作方式</h3><p>滑鼠拖曳可旋轉，滾輪可縮放，右鍵拖曳可平移。觸控裝置以單指旋轉、雙指縮放與平移。自由探索中的搜尋結果也可用鍵盤選取。</p><div className="about-links"><a href={publicUrl('README.txt')} target="_blank" rel="noreferrer">模型說明與資料依據<ArrowRight {...ICON} size={16} /></a><a href={publicUrl('gallery/HERO.webp')} target="_blank" rel="noreferrer">查看渲染總覽<ArrowRight {...ICON} size={16} /></a></div></div></dialog>
+    <dialog className="about-dialog" ref={dialogRef} onCancel={() => setAboutOpen(false)} onClick={(event) => { if (event.target === event.currentTarget) setAboutOpen(false); }} aria-labelledby="about-title"><div className="about-content"><div className="dialog-heading"><h2 id="about-title">關於這個模型</h2><button type="button" className="icon-button" onClick={() => setAboutOpen(false)} aria-label="關閉說明"><X {...ICON} /></button></div><p className="about-lead">以最終 Blender 模型建立的 FAB-1 互動展示。</p><p>本模型依設計資料建立，保留設備與管線配置，並補充材質、廠房外殼及近景細節。未取得實測或原廠尺寸的構件採推導尺寸。</p><p>運轉模式加入 OHT 升降搬運、廠區車輛、閘門連鎖、裝卸門、設備燈號及風扇旋轉。節拍、車速與葉輪外觀採展示用假設，風扇轉速經視覺化放慢；流向標記不是 CFD 計算。</p><p>目前未接入即時感測資料，並非已驗證的竣工模型。設備面板展示的是模型資料。啟用系統「減少動態」時，預設暫停設備，可手動啟動。</p><div className="about-facts"><div><span>建築基準尺寸</span><strong>250 × 90 m</strong></div><div><span>檢視樓層</span><strong>B1 / 1F / 2F / RF</strong></div></div><h3>操作方式</h3><p>滑鼠拖曳可旋轉，滾輪可縮放，右鍵拖曳可平移。觸控裝置以單指旋轉、雙指縮放與平移。自由探索中的搜尋結果也可用鍵盤選取。</p><div className="about-links"><a href={publicUrl('README.txt')} target="_blank" rel="noreferrer">模型說明與資料依據<ArrowRight {...ICON} size={16} /></a><a href={publicUrl('gallery/HERO.webp')} target="_blank" rel="noreferrer">查看渲染總覽<ArrowRight {...ICON} size={16} /></a></div></div></dialog>
   </div>;
 }

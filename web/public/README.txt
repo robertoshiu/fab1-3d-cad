@@ -68,3 +68,9 @@ Lighthouse 桌面本機測試：效能 60、可及性 100、最佳實務 100、S
 ## 設計方向
 
 工業模型展廳，以三維內容為主角。Taste Skill：DESIGN_VARIANCE 5、MOTION_INTENSITY 4、VISUAL_DENSITY 3。使用 React、Three.js、原生 CSS、自託管 IBM Plex 字體與 Phosphor 圖示。
+
+
+廠區運轉模式（2026-09-29）
+OHT 升降搬運、設備燈號、配送車、進出柵欄、裝卸門、FFU 與屋頂葉輪均可動態呈現。可獨立暫停設備、調整 0.5×/1×/2×，並切換流向覆疊。手機操作面板有六個運轉近景。
+原廠研究、節拍假設及限制：sources/OPERATING_MODES.md
+未接入即時資料；風扇轉速放慢供辨識；流向不是 CFD 計算。

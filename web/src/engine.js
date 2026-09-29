@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OperationsSimulation, OPERATION_VIEWS } from './operations.js';
 import { batchStaticMeshes } from './batching.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -76,7 +77,7 @@ export class TwinViewer {
       this.selection=new THREE.Box3Helper(new THREE.Box3(),0x008875);this.selection.visible=false;this.scene.add(this.selection);
       this.resizeObserver=new ResizeObserver(()=>this.resize());this.resizeObserver.observe(this.host);
       this.resize();this.goToShot('HERO',0);
-      this.listen(this.motionMedia,'change',e=>{this.reduced=e.matches;if(e.matches)this.cancelMove();});
+      this.listen(this.motionMedia,'change',e=>{this.reduced=e.matches;if(e.matches){this.cancelMove();this.operations?.setEnabled(false);}});
       this.listen(canvas,'keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){this.cancelMove();this.onInteract?.();}});
       this.listen(canvas,'pointerdown',e=>{this.pointerDown={x:e.clientX,y:e.clientY,time:performance.now(),button:e.button};});
       this.listen(canvas,'pointerup',e=>{
@@ -120,6 +121,8 @@ export class TwinViewer {
         });
         loaded++;this.applyVisibility();this.dirty=4;
       }
+      this.assets=[...this.assetMap.values()].map(e=>e.data);
+      this.operations=new OperationsSimulation(this);
       this.assets=[...this.assetMap.values()].map(e=>e.data);
       this.onProgress?.({loaded:records.length,total:records.length,label:'正在整理設備繪圖資料',ratio:.96});
       this.batches=await batchStaticMeshes(this);
@@ -184,7 +187,7 @@ export class TwinViewer {
       if(this.exploded&&key==='shell')root.visible=false;
       root.position.y=this.exploded?({B1:0,F1:14,F2:28,RF:42}[key]||0):0;
       root.traverse(o=>{
-        if(!o.isMesh||o.userData.viewerBatch)return;
+        if(!o.isMesh||o.userData.viewerBatch||o.userData.viewerDynamic)return;
         const asset=this.assetMap.get(o.userData.viewerAssetId)?.data;
         const collection=asset?.sourceCollection||'';
         const mode=o.userData.displayMode||asset?.displayMode;
@@ -197,6 +200,7 @@ export class TwinViewer {
       });
     }
     for(const batch of this.batches)batch.mesh.visible=batch.originals[0].visible;
+    this.operations?.syncVisibility();
     if(this.renderer)this.renderer.shadowMap.needsUpdate=true;this.dirty=5;
   }
   frameFloor(floor){const y=FLOOR_Z[floor]||0;this.move([350,y+170,235],[125,y+2,-45],42,1400);}
@@ -218,7 +222,7 @@ export class TwinViewer {
   pick(event){
     const bounds=this.renderer.domElement.getBoundingClientRect();const xy=new THREE.Vector2((event.clientX-bounds.left)/bounds.width*2-1,-(event.clientY-bounds.top)/bounds.height*2+1);
     const ray=new THREE.Raycaster();ray.layers.enable(1);ray.setFromCamera(xy,this.camera);
-    const hit=ray.intersectObjects(this.meshes.filter(o=>this.visible(o)),false)[0];
+    const hit=ray.intersectObjects([...this.meshes,...(this.operations?.pickables||[])].filter(o=>this.visible(o)),false)[0];
     if(hit)this.selectAsset(hit.object.userData.viewerAssetId);else this.clearSelection();
   }
   selectAsset(id){
@@ -236,14 +240,29 @@ export class TwinViewer {
     this.selectAsset(id);const box=this.selection.box;const center=box.getCenter(new THREE.Vector3());const size=box.getSize(new THREE.Vector3());
     const span=Math.max(size.x,size.y,size.z,3);this.move(center.clone().add(new THREE.Vector3(1,.7,1).normalize().multiplyScalar(span*2.1)).toArray(),center.toArray(),48,1300);
   }
+  focusOperation(key){
+    const view=OPERATION_VIEWS[key];if(!view)return;
+    this.cancelMove();this.clearSelection();this.floor=view.floor;this.system='ALL';this.exploded=false;this.cutaway=view.floor!=='ALL';this.applyVisibility();
+    if(['AIR','UTILITIES'].includes(key))this.operations.setFlow(true);
+    this.move(view.position,view.target,view.fov,1200);this.shot=key;
+  }
   loop=()=>{
     if(this.dead)return;this.frame=requestAnimationFrame(this.loop);
-    if(document.hidden)return;
+    const now=performance.now();
+    if(document.hidden){this.lastTick=undefined;return;}
+    if(!this.preparing){
+      const dt=this.lastTick===undefined?0:(now-this.lastTick)/1000;this.lastTick=now;
+      this.operations?.advance(dt);
+      if(this.operations?.enabled)this.dirty=Math.max(this.dirty,1);
+    }
+    const targetFrame=1000/(this.effectiveQuality==='smooth'?30:60);
+    if(now-(this.lastRender||0)<targetFrame-.5)return;
     if(this.tween){const t=this.tween;const raw=Math.min(1,(performance.now()-t.start)/t.duration);const ease=raw*raw*(3-2*raw);this.camera.position.lerpVectors(t.from,t.to,ease);this.controls.target.lerpVectors(t.fromTarget,t.toTarget,ease);this.camera.fov=THREE.MathUtils.lerp(t.fromFov,t.toFov,ease);this.camera.updateProjectionMatrix();this.dirty=3;if(raw===1)this.tween=null;}
     this.controls?.update();
-    if(this.dirty>0&&!this.preparing){const distance=this.camera.position.distanceTo(this.controls.target); const near=distance>100?Math.min(30,distance/40):.05;if(this.camera.near!==near){this.camera.near=near;this.camera.updateProjectionMatrix();}this.renderer.render(this.scene,this.camera);this.dirty--;this.frames=(this.frames||0)+1;}
+    if(this.dirty>0&&!this.preparing){const distance=this.camera.position.distanceTo(this.controls.target); const near=distance>100?Math.min(30,distance/40):.05;if(this.camera.near!==near){this.camera.near=near;this.camera.updateProjectionMatrix();}if(this.selected&&this.assetMap.get(this.selected)?.objects.some(o=>o.userData.viewerDynamic)){this.scene.updateMatrixWorld(true);this.selection.box.makeEmpty();for(const o of this.assetMap.get(this.selected).objects)this.selection.box.union(new THREE.Box3().setFromObject(o));this.selection.box.expandByScalar(.06);}
+      this.renderer.render(this.scene,this.camera);this.lastRender=now;this.dirty--;this.frames=(this.frames||0)+1;}
   };
-  getSnapshot(){return{ready:!!this.assets&&!this.preparing&&!this.dead,quality:this.quality,effectiveQuality:this.effectiveQuality,pixelRatio:this.renderer?.getPixelRatio(),batches:this.batches.length,batchedObjects:this.batches.reduce((n,b)=>n+b.originals.length,0),floor:this.floor,system:this.system,cutaway:this.cutaway,exploded:this.exploded,shot:this.shot,selected:this.selected,groups:[...this.groups].map(([id,g])=>({id,visible:g.visible,offsetY:g.position.y})),assets:this.assets?.length||0,meshes:this.meshes.length,camera:this.camera?.position.toArray(),target:this.controls?.target.toArray(),drawCalls:this.renderer?.info.render.calls,triangles:this.renderer?.info.render.triangles,loadedMs:this.loadedMs,frames:this.frames,source:this.manifest?.source};}
+  getSnapshot(){return{operations:this.operations?.snapshot(),ready:!!this.assets&&!this.preparing&&!this.dead,quality:this.quality,effectiveQuality:this.effectiveQuality,pixelRatio:this.renderer?.getPixelRatio(),batches:this.batches.length,batchedObjects:this.batches.reduce((n,b)=>n+b.originals.length,0),floor:this.floor,system:this.system,cutaway:this.cutaway,exploded:this.exploded,shot:this.shot,selected:this.selected,groups:[...this.groups].map(([id,g])=>({id,visible:g.visible,offsetY:g.position.y})),assets:this.assets?.length||0,meshes:this.meshes.length,camera:this.camera?.position.toArray(),target:this.controls?.target.toArray(),drawCalls:this.renderer?.info.render.calls,triangles:this.renderer?.info.render.triangles,loadedMs:this.loadedMs,frames:this.frames,source:this.manifest?.source};}
   disposeTree(root){root.traverse(o=>{o.geometry?.dispose();for(const m of (Array.isArray(o.material)?o.material:o.material?[o.material]:[])){for(const val of Object.values(m))if(val?.isTexture){val.source?.data?.close?.();val.dispose();}m.dispose();}});}
   dispose(){this.dead=true;this.abort.abort();cancelAnimationFrame(this.frame);this.listeners.forEach(fn=>fn());this.resizeObserver?.disconnect();this.controls?.dispose();if(this.scene)this.disposeTree(this.scene);this.envTarget?.dispose();this.pmrem?.dispose();this.draco?.dispose();for(const material of this.fastMaterials.values())material.dispose();for(const material of this.materialCache.values())material.dispose();this.renderer?.dispose();this.renderer?.domElement.remove();}
 }

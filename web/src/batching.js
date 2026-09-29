@@ -10,7 +10,7 @@ export async function batchStaticMeshes(viewer) {
     const inverse=root.matrixWorld.clone().invert();
     const buckets=new Map();
     for(const object of viewer.meshes){
-      if(object.userData.viewerGroup!==floor)continue;
+      if(object.userData.viewerGroup!==floor||object.userData.viewerDynamic)continue;
       const material=object.material,geometry=object.geometry;
       if(Array.isArray(material)||material.transparent||material.transmission>0||object.isSkinnedMesh||Object.keys(geometry.morphAttributes).length)continue;
       const matrix=new THREE.Matrix4().multiplyMatrices(inverse,object.matrixWorld);

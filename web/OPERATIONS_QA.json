@@ -1,0 +1,193 @@
+{
+  "date": "2026-09-29",
+  "pass": true,
+  "desktop": {
+    "checks": [
+      {
+        "name": "operations default active",
+        "pass": true
+      },
+      {
+        "name": "3136 FFU and 30 roof fans",
+        "pass": true
+      },
+      {
+        "name": "simulation clock advances",
+        "pass": true
+      },
+      {
+        "name": "pause freezes clock and GPU frames",
+        "pass": true,
+        "details": {
+          "from": 72,
+          "to": 72
+        }
+      },
+      {
+        "name": "static actors replaced and moving IDs retained",
+        "pass": true,
+        "details": {
+          "replaced": 14,
+          "live": true,
+          "pickables": 54
+        }
+      },
+      {
+        "name": "selected moving FOUP bounds follow handoff",
+        "pass": true,
+        "details": {
+          "y1": 17.645,
+          "y2": 16.62
+        }
+      },
+      {
+        "name": "2x speed advances clock",
+        "pass": true
+      },
+      {
+        "name": "hidden page suspends simulation",
+        "pass": true
+      },
+      {
+        "name": "resume does not catch up hidden time",
+        "pass": true
+      },
+      {
+        "name": "view FFU 送風",
+        "pass": true
+      },
+      {
+        "name": "view 屋頂排風",
+        "pass": true
+      },
+      {
+        "name": "view 支援管線流向",
+        "pass": true
+      },
+      {
+        "name": "view 裝卸門啟閉",
+        "pass": true
+      },
+      {
+        "name": "view 車輛與閘門",
+        "pass": true
+      },
+      {
+        "name": "flow appears immediately while paused",
+        "pass": true,
+        "details": {
+          "enabled": true,
+          "positions": [
+            42.150001525878906,
+            30.2591495513916,
+            -23.5
+          ],
+          "visible": [
+            "Operations_F2_FFU",
+            "Operations_F2_FFU"
+          ]
+        }
+      },
+      {
+        "name": "system filter hides unrelated moving nodes",
+        "pass": true
+      },
+      {
+        "name": "actors share exploded floor transforms",
+        "pass": true
+      },
+      {
+        "name": "Equipment filter retains roof rotors",
+        "pass": true
+      },
+      {
+        "name": "OHT filter retains moving carriers and searchable IDs",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "overview": {
+      "assets": 2570,
+      "drawCalls": 1139,
+      "triangles": 3802470,
+      "batches": 310,
+      "batchedObjects": 2373
+    }
+  },
+  "mobileEmulation": {
+    "viewport": "390x844",
+    "deviceScaleFactor": 3,
+    "physicalDevice": false,
+    "checks": [
+      {
+        "name": "mobile automatic smooth and DPR1",
+        "pass": true
+      },
+      {
+        "name": "mobile renderer <=30fps",
+        "pass": true,
+        "details": {
+          "frames": 37,
+          "intervalMs": 1200
+        }
+      },
+      {
+        "name": "touch pause freezes all operations",
+        "pass": true
+      },
+      {
+        "name": "close-up dismisses mobile panel",
+        "pass": true
+      },
+      {
+        "name": "touch resume",
+        "pass": true
+      },
+      {
+        "name": "mobile speed selector",
+        "pass": true
+      },
+      {
+        "name": "reduced motion change pauses operations",
+        "pass": true
+      },
+      {
+        "name": "reduced motion defaults to paused",
+        "pass": true
+      },
+      {
+        "name": "explicit opt-in can play in reduced mode",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "overview": {
+      "effectiveQuality": "smooth",
+      "pixelRatio": 1,
+      "drawCalls": 591,
+      "triangles": 1904477
+    }
+  },
+  "deterministicCycleTests": {
+    "command": "npm test",
+    "samples": 7280,
+    "stepSeconds": 0.025,
+    "durationSeconds": 182,
+    "pass": true,
+    "invariants": [
+      "Both barriers fully open while vehicle overlaps crossing",
+      "FOUP always raised during horizontal transport",
+      "Continuous FOUP position through ownership changes",
+      "Two west-track carriers retain separation",
+      "Shutter opening remains in [0,1]",
+      "Closed road position is continuous"
+    ]
+  },
+  "limitations": [
+    "Not measured on a physical phone",
+    "Render rate caps are not a device FPS guarantee",
+    "Hidden-tab logic tested with a controlled document.hidden override",
+    "Only demonstration state sequences; not connected to real control systems"
+  ],
+  "sourceBlendSHA256": "727624294f725b194d0bd2b1a8b6714364179670a3d230b89dbb87d19a3aa2aa"
+}

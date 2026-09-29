@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
         working-directory: web
+      - name: Verify operational cycles
+        run: npm test
+        working-directory: web
       - name: Build static site
         run: npm run build
         working-directory: web
