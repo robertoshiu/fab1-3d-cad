@@ -1,0 +1,8 @@
+/*
+!/.gitignore
+!/README.md
+!/.github/
+!/web/
+**/node_modules/
+**/dist/
+**/.env*

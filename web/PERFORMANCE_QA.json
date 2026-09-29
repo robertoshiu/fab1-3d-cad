@@ -1,0 +1,224 @@
+{
+  "pass": true,
+  "date": "2026-09-29",
+  "baselineDesktopDrawCalls": 5106,
+  "optimizedDesktopDrawCalls": 964,
+  "desktopDrawCallReductionPercent": 81.1,
+  "mobileEmulatedDrawCalls": 508,
+  "mobilePixelRatio": 1,
+  "geometryTrianglesRetained": 1868611,
+  "selectableAssetsRetained": 2569,
+  "batchCount": 313,
+  "batchedObjects": 2384,
+  "desktopTests": {
+    "batch": [
+      {
+        "test": "Batch topology retained",
+        "pass": true,
+        "triangles": 1868611
+      },
+      {
+        "test": "All asset IDs retained",
+        "pass": true
+      },
+      {
+        "test": "Batch visibility matches originals across floors/systems/cutaway",
+        "pass": true
+      }
+    ],
+    "interactions": [
+      {
+        "test": "Exploded floors",
+        "pass": true
+      },
+      {
+        "test": "Floor switch clears explosion",
+        "pass": true
+      },
+      {
+        "test": "System filter",
+        "pass": true,
+        "visible": 1124
+      },
+      {
+        "test": "Search focus and metadata",
+        "pass": true
+      },
+      {
+        "test": "Pause cancels camera and timer",
+        "pass": true
+      },
+      {
+        "test": "Manual orbit pauses tour",
+        "pass": true
+      },
+      {
+        "test": "Fullscreen includes controls",
+        "pass": true
+      },
+      {
+        "test": "Dark theme",
+        "pass": true
+      },
+      {
+        "test": "Finish returns overview",
+        "pass": true
+      },
+      {
+        "test": "Replay",
+        "pass": true
+      }
+    ]
+  },
+  "mobileTests": {
+    "first": {
+      "snapshot": {
+        "ready": true,
+        "quality": "auto",
+        "effectiveQuality": "smooth",
+        "pixelRatio": 1,
+        "batches": 313,
+        "batchedObjects": 2384,
+        "floor": "ALL",
+        "system": "ALL",
+        "cutaway": true,
+        "exploded": false,
+        "shot": "HERO",
+        "groups": [
+          {
+            "id": "shell",
+            "visible": true,
+            "offsetY": 0
+          },
+          {
+            "id": "site",
+            "visible": true,
+            "offsetY": 0
+          },
+          {
+            "id": "RF",
+            "visible": true,
+            "offsetY": 0
+          },
+          {
+            "id": "F1",
+            "visible": true,
+            "offsetY": 0
+          },
+          {
+            "id": "B1",
+            "visible": true,
+            "offsetY": 0
+          },
+          {
+            "id": "F2",
+            "visible": true,
+            "offsetY": 0
+          }
+        ],
+        "assets": 2569,
+        "meshes": 2569,
+        "camera": [
+          890.3846153846154,
+          367.525641025641,
+          873.4615384615383
+        ],
+        "target": [
+          125,
+          18,
+          -45
+        ],
+        "drawCalls": 508,
+        "triangles": 1853085,
+        "loadedMs": 2717.5,
+        "frames": 5,
+        "source": {
+          "blend": "out/digital_twin/FAB1_DigitalTwin.blend",
+          "sha256": "727624294f725b194d0bd2b1a8b6714364179670a3d230b89dbb87d19a3aa2aa",
+          "scene": "FAB1_DigitalTwin",
+          "blenderVersion": "4.5.10 LTS"
+        }
+      },
+      "coarse": true,
+      "canvasWidth": 390,
+      "overflow": false
+    },
+    "detail": {
+      "ready": true,
+      "quality": "detail",
+      "effectiveQuality": "detail",
+      "pixelRatio": 1.5,
+      "batches": 313,
+      "batchedObjects": 2384,
+      "floor": "ALL",
+      "system": "ALL",
+      "cutaway": true,
+      "exploded": false,
+      "shot": "HERO",
+      "groups": [
+        {
+          "id": "shell",
+          "visible": true,
+          "offsetY": 0
+        },
+        {
+          "id": "site",
+          "visible": true,
+          "offsetY": 0
+        },
+        {
+          "id": "RF",
+          "visible": true,
+          "offsetY": 0
+        },
+        {
+          "id": "F1",
+          "visible": true,
+          "offsetY": 0
+        },
+        {
+          "id": "B1",
+          "visible": true,
+          "offsetY": 0
+        },
+        {
+          "id": "F2",
+          "visible": true,
+          "offsetY": 0
+        }
+      ],
+      "assets": 2569,
+      "meshes": 2569,
+      "camera": [
+        890.3846153846154,
+        367.525641025641,
+        873.4615384615383
+      ],
+      "target": [
+        125,
+        18,
+        -45
+      ],
+      "drawCalls": 508,
+      "triangles": 1853085,
+      "loadedMs": 2717.5,
+      "frames": 5,
+      "source": {
+        "blend": "out/digital_twin/FAB1_DigitalTwin.blend",
+        "sha256": "727624294f725b194d0bd2b1a8b6714364179670a3d230b89dbb87d19a3aa2aa",
+        "scene": "FAB1_DigitalTwin",
+        "blenderVersion": "4.5.10 LTS"
+      }
+    },
+    "picked": "VIS:A-S3_CV10_access_panel.001",
+    "pass": true
+  },
+  "note": "Chrome mobile emulation at 390x844, DPR3 with touch; not physical-device FPS. Batched geometry is an extra runtime render representation; original geometry/IDs remain for selection. File payload unchanged at approximately 21.5MB.",
+  "lighthouse": {
+    "performance": 60,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "loadingNote": "Initial-load Lighthouse score is 60 vs baseline61; runtime draw-call reduction is not a claim of faster first load or measured phone FPS."
+}

@@ -1,0 +1,118 @@
+{
+  "pass": true,
+  "date": "2026-09-29",
+  "testedUrl": "http://127.0.0.1:4174/",
+  "browser": "Playwright Chrome desktop; mobile viewport emulation 390x844 (not a physical mobile benchmark)",
+  "tests": [
+    {
+      "test": "Exploded floors",
+      "pass": true
+    },
+    {
+      "test": "Floor switch clears explosion",
+      "pass": true
+    },
+    {
+      "test": "System filter",
+      "pass": true,
+      "visible": 1124
+    },
+    {
+      "test": "Search focus and metadata",
+      "pass": true
+    },
+    {
+      "test": "Pause cancels camera and timer",
+      "pass": true
+    },
+    {
+      "test": "Manual orbit pauses tour",
+      "pass": true
+    },
+    {
+      "test": "Fullscreen includes controls",
+      "pass": true
+    },
+    {
+      "test": "Dark theme",
+      "pass": true
+    },
+    {
+      "test": "Finish returns overview",
+      "pass": true
+    },
+    {
+      "test": "Replay",
+      "pass": true
+    },
+    {
+      "test": "Mobile panel focus",
+      "pass": true
+    },
+    {
+      "test": "Mobile close restores focus",
+      "pass": true
+    },
+    {
+      "test": "Mobile no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "Reduced motion no autoplay or tween",
+      "pass": true
+    },
+    {
+      "test": "Reduced motion completes last station",
+      "pass": true
+    },
+    {
+      "test": "Model failure fallback",
+      "pass": true,
+      "message": "暫時無法載入互動模型\n\n模型清單尚未載入成功\n\n重新載入\n查看渲染總覽"
+    },
+    {
+      "test": "Canvas raycast selection",
+      "pass": true,
+      "selected": "VIS:Detail_F1_Process_Detail_steel"
+    },
+    {
+      "test": "Full automatic six-station tour",
+      "pass": true,
+      "elapsedMs": 72111.60000002384
+    }
+  ],
+  "sourceUnchanged": true,
+  "sourceSha256": "727624294f725b194d0bd2b1a8b6714364179670a3d230b89dbb87d19a3aa2aa",
+  "source": {
+    "blend": "out/digital_twin/FAB1_DigitalTwin.blend",
+    "sha256": "727624294f725b194d0bd2b1a8b6714364179670a3d230b89dbb87d19a3aa2aa",
+    "scene": "FAB1_DigitalTwin",
+    "blenderVersion": "4.5.10 LTS"
+  },
+  "lighthouse": {
+    "performance": 60,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "first-contentful-paint": "0.6 s",
+    "largest-contentful-paint": "1.0 s",
+    "speed-index": "3.3 s",
+    "total-blocking-time": "2,030 ms"
+  },
+  "build": "npm --prefix web run build passed",
+  "lockCheck": "npm --prefix web ci --dry-run --offline --ignore-scripts --no-audit --no-fund passed; no fresh full ci run",
+  "limitations": [
+    "Full 3D initialization still produces main-thread blocking.",
+    "No live sensor data or verified as-built status.",
+    "Khronos zero errors; normals without explicit tangents use Three.js runtime tangent frame."
+  ],
+  "lighthouseBeforeBatching": {
+    "performance": 61,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "runtimeOptimizationReport": "PERFORMANCE_QA.json"
+}

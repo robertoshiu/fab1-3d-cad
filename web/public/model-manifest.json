@@ -1,0 +1,527 @@
+{
+  "version": 1,
+  "units": "m",
+  "upAxis": "Y",
+  "source": {
+    "blend": "out/digital_twin/FAB1_DigitalTwin.blend",
+    "sha256": "727624294f725b194d0bd2b1a8b6714364179670a3d230b89dbb87d19a3aa2aa",
+    "scene": "FAB1_DigitalTwin",
+    "blenderVersion": "4.5.10 LTS"
+  },
+  "groups": [
+    {
+      "id": "shell",
+      "url": "/models/shell.glb",
+      "bounds": {
+        "min": [
+          -4.425000190734863,
+          -0.23999999463558197,
+          -90.62000274658203
+        ],
+        "max": [
+          254.4949951171875,
+          43.11000061035156,
+          5.800000190734863
+        ]
+      },
+      "meshCount": 41,
+      "nodeCount": 41,
+      "triangles": 53464,
+      "sourceIdCount": 0,
+      "convertedTextObjects": 3,
+      "rawBytes": 9148296,
+      "bytes": 437788,
+      "sha256": "6b4f73287f21c45bc4801245bed6066a64ca15d65df1a0576c10c92af31ca7b7",
+      "externalTextures": [
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_8f57216f16f3e064ea98.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_827a89780e38a5b0e760.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_5b1c6ae657d10c38524e.webp",
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_79a047800589ddbf9fd4.webp",
+        "/textures/pbr_a2d155cddadfe428f658.webp",
+        "/textures/pbr_ec62f4f6ae9204426d71.webp",
+        "/textures/pbr_3e4b20940d44fb21fb51.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_e750553be5737ca209aa.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_14baef9d4dded2e16b37.webp",
+        "/textures/pbr_9e54e7205a008e68591c.webp"
+      ],
+      "compression": "Draco (position 20 bits / normal 12 bits / UV 16 bits); shared 1K WebP"
+    },
+    {
+      "id": "site",
+      "url": "/models/site.glb",
+      "bounds": {
+        "min": [
+          -35,
+          -12.40000057220459,
+          -200
+        ],
+        "max": [
+          286,
+          8.805000305175781,
+          55
+        ]
+      },
+      "meshCount": 65,
+      "nodeCount": 65,
+      "triangles": 9772,
+      "sourceIdCount": 0,
+      "convertedTextObjects": 0,
+      "rawBytes": 9524136,
+      "bytes": 152356,
+      "sha256": "7abdd68ae07cb53232baf65741f9b50a208e8b1bb428c7399e4122506edf96f0",
+      "externalTextures": [
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_14baef9d4dded2e16b37.webp",
+        "/textures/pbr_ddc202897603d15d8af3.webp",
+        "/textures/pbr_ff269fc5185de04267f0.webp",
+        "/textures/pbr_376f82c8c6946ea93895.webp",
+        "/textures/pbr_a2d155cddadfe428f658.webp",
+        "/textures/pbr_ec62f4f6ae9204426d71.webp",
+        "/textures/pbr_3e4b20940d44fb21fb51.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_e750553be5737ca209aa.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_5b1c6ae657d10c38524e.webp",
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_79a047800589ddbf9fd4.webp",
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_bf7b9cb46e385338061c.webp",
+        "/textures/pbr_9e54e7205a008e68591c.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_50767be0612b1576afcd.webp"
+      ],
+      "compression": "Draco (position 20 bits / normal 12 bits / UV 16 bits); shared 1K WebP"
+    },
+    {
+      "id": "B1",
+      "url": "/models/B1.glb",
+      "bounds": {
+        "min": [
+          -1.5,
+          -12.199999809265137,
+          -91.5
+        ],
+        "max": [
+          251.5,
+          14.80000114440918,
+          1.5
+        ]
+      },
+      "meshCount": 484,
+      "nodeCount": 610,
+      "triangles": 237395,
+      "sourceIdCount": 573,
+      "convertedTextObjects": 9,
+      "rawBytes": 19847784,
+      "bytes": 2647176,
+      "sha256": "0da963036f020c83e6825dce7645b93774c6a9ca26b3b9c0bd571e9bb96de9ec",
+      "externalTextures": [
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_eb089bb4597e6414cb2c.webp",
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_79a047800589ddbf9fd4.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_e750553be5737ca209aa.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_827a89780e38a5b0e760.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_7db588f24e00b49a3591.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_5b1c6ae657d10c38524e.webp",
+        "/textures/pbr_a2d155cddadfe428f658.webp",
+        "/textures/pbr_ec62f4f6ae9204426d71.webp",
+        "/textures/pbr_3e4b20940d44fb21fb51.webp",
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_2bce93493f550029f022.webp",
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_8f57216f16f3e064ea98.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_50767be0612b1576afcd.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_14baef9d4dded2e16b37.webp"
+      ],
+      "compression": "Draco (position 20 bits / normal 12 bits / UV 16 bits); shared 1K WebP"
+    },
+    {
+      "id": "F1",
+      "url": "/models/F1.glb",
+      "bounds": {
+        "min": [
+          -0.5,
+          13.699999809265137,
+          -90.50001525878906
+        ],
+        "max": [
+          250.5,
+          29.600004196166992,
+          0.4999980628490448
+        ]
+      },
+      "meshCount": 1434,
+      "nodeCount": 1506,
+      "triangles": 408956,
+      "sourceIdCount": 1336,
+      "convertedTextObjects": 16,
+      "rawBytes": 36073304,
+      "bytes": 6067568,
+      "sha256": "1ee5599a4b33a3a9fa59b22554a4194ad0c31444c2fd0e14fe9f397936c7b219",
+      "externalTextures": [
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_79a047800589ddbf9fd4.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_e750553be5737ca209aa.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_5b1c6ae657d10c38524e.webp",
+        "/textures/pbr_a2d155cddadfe428f658.webp",
+        "/textures/pbr_ec62f4f6ae9204426d71.webp",
+        "/textures/pbr_3e4b20940d44fb21fb51.webp",
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_2bce93493f550029f022.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_b84ef089566f6242521d.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_827a89780e38a5b0e760.webp",
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_bf7b9cb46e385338061c.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_7db588f24e00b49a3591.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_50767be0612b1576afcd.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_14baef9d4dded2e16b37.webp"
+      ],
+      "compression": "Draco (position 20 bits / normal 12 bits / UV 16 bits); shared 1K WebP"
+    },
+    {
+      "id": "F2",
+      "url": "/models/F2.glb",
+      "bounds": {
+        "min": [
+          -0.44999998807907104,
+          26.683992385864258,
+          -90.45001220703125
+        ],
+        "max": [
+          250.4499969482422,
+          41.80000686645508,
+          0.44999608397483826
+        ]
+      },
+      "meshCount": 240,
+      "nodeCount": 330,
+      "triangles": 882812,
+      "sourceIdCount": 324,
+      "convertedTextObjects": 0,
+      "rawBytes": 53620932,
+      "bytes": 5789500,
+      "sha256": "7a40e159f43382c1868712f2ae0fa1e135490a8457f141b4a007e27232cd840e",
+      "externalTextures": [
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_eb089bb4597e6414cb2c.webp",
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_79a047800589ddbf9fd4.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_e750553be5737ca209aa.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_5b1c6ae657d10c38524e.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_827a89780e38a5b0e760.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_7db588f24e00b49a3591.webp"
+      ],
+      "compression": "Draco (position 20 bits / normal 12 bits / UV 16 bits); shared 1K WebP"
+    },
+    {
+      "id": "RF",
+      "url": "/models/RF.glb",
+      "bounds": {
+        "min": [
+          -0.1599999964237213,
+          41.4799919128418,
+          -90.16001892089844
+        ],
+        "max": [
+          250.16000366210938,
+          55,
+          0.159994438290596
+        ]
+      },
+      "meshCount": 305,
+      "nodeCount": 449,
+      "triangles": 276212,
+      "sourceIdCount": 353,
+      "convertedTextObjects": 32,
+      "rawBytes": 23330456,
+      "bytes": 2380956,
+      "sha256": "4a30b0d8c551e9ef0fab9be7d4b61069ded21445d8befecf5b1ffa4b8379dd14",
+      "externalTextures": [
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_79a047800589ddbf9fd4.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_7db588f24e00b49a3591.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_827a89780e38a5b0e760.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_50767be0612b1576afcd.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_e750553be5737ca209aa.webp",
+        "/textures/pbr_b9da369fb8a5e347d631.webp",
+        "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_5b1c6ae657d10c38524e.webp",
+        "/textures/pbr_a2d155cddadfe428f658.webp",
+        "/textures/pbr_ec62f4f6ae9204426d71.webp",
+        "/textures/pbr_3e4b20940d44fb21fb51.webp",
+        "/textures/pbr_6682d89414193fa59003.webp",
+        "/textures/pbr_8f57216f16f3e064ea98.webp",
+        "/textures/pbr_5fbb7024acfc5a778db2.webp",
+        "/textures/pbr_2bce93493f550029f022.webp",
+        "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+        "/textures/pbr_14baef9d4dded2e16b37.webp"
+      ],
+      "compression": "Draco (position 20 bits / normal 12 bits / UV 16 bits); shared 1K WebP"
+    }
+  ],
+  "cameras": {
+    "HERO": {
+      "position": [
+        425,
+        155,
+        315
+      ],
+      "target": [
+        125,
+        18,
+        -45
+      ],
+      "fov": 26.991466429975517
+    },
+    "EXTERIOR": {
+      "position": [
+        398,
+        195,
+        365
+      ],
+      "target": [
+        125,
+        23,
+        -45
+      ],
+      "fov": 26.991466429975517
+    },
+    "CLEANROOM": {
+      "position": [
+        45,
+        17.100000381469727,
+        -41
+      ],
+      "target": [
+        45,
+        17.3,
+        -23.5
+      ],
+      "fov": 51.28200968475036
+    },
+    "B1": {
+      "position": [
+        44.099998474121094,
+        -5.199999809265137,
+        -30.399999618530273
+      ],
+      "target": [
+        41.6,
+        -6.55,
+        -33.05
+      ],
+      "fov": 41.11209023703316
+    },
+    "ROOF": {
+      "position": [
+        35,
+        48.20000076293945,
+        -11
+      ],
+      "target": [
+        45,
+        44.3,
+        -20
+      ],
+      "fov": 37.84928837995056
+    },
+    "PLENUM": {
+      "position": [
+        109,
+        31.600000381469727,
+        -15
+      ],
+      "target": [
+        105,
+        30.35,
+        -48
+      ],
+      "fov": 49.55028010749075
+    }
+  },
+  "environment": "/textures/environment.hdr",
+  "assetRegistry": "/models/asset-registry.json",
+  "totals": {
+    "meshCount": 2569,
+    "sourceIdCount": 2586,
+    "triangles": 1868611,
+    "bytes": 17475344,
+    "sharedTextureBytes": 2928958,
+    "initialTransferBytes": 21487086
+  },
+  "floorElevations": {
+    "B1": -7.2,
+    "F1": 15.4,
+    "F2": 29.6,
+    "RF": 41.8
+  },
+  "materialNotes": [
+    "Final Blender PBR appearance translated to glTF; photo textures and micro-roughness retained with world-space UV projection.",
+    "Blender Cycles lighting is recreated with the source HDR environment and runtime lights.",
+    "Source procedural BOX projection uses dominant-axis UV equivalent; procedural micro-noise is represented by deterministic repeating roughness and normal maps."
+  ],
+  "liveTelemetry": false,
+  "designStatus": "Design-derived visualization; unspecified dimensions remain inferred, not as-built.",
+  "decoderPath": "/models/draco/",
+  "textures": [
+    {
+      "url": "/textures/pbr_6682d89414193fa59003.webp",
+      "bytes": 13788,
+      "sha256": "6682d89414193fa5900301fa6fbef4f0208b6232114131088966bd31c9c20763"
+    },
+    {
+      "url": "/textures/pbr_8f57216f16f3e064ea98.webp",
+      "bytes": 6238,
+      "sha256": "8f57216f16f3e064ea98e78e8ce65d7e254b2cbdf8acc555caa28387bfee3708"
+    },
+    {
+      "url": "/textures/pbr_dc8dd7712f2bd4a51e17.webp",
+      "bytes": 13786,
+      "sha256": "dc8dd7712f2bd4a51e172cb1f08a4ee284a59c1acb85862855d88c9f68da72b0"
+    },
+    {
+      "url": "/textures/pbr_827a89780e38a5b0e760.webp",
+      "bytes": 5680,
+      "sha256": "827a89780e38a5b0e7601b62706e02a58309e7675bff978d860a42e35ba043d0"
+    },
+    {
+      "url": "/textures/pbr_b9da369fb8a5e347d631.webp",
+      "bytes": 196896,
+      "sha256": "b9da369fb8a5e347d6313992e97a6802f1262dc3a76ebf5059bb31666a943093"
+    },
+    {
+      "url": "/textures/pbr_9ce8ef34bb45136e5f3f.webp",
+      "bytes": 17836,
+      "sha256": "9ce8ef34bb45136e5f3f866242015d42002669fe0b9095ceece249fa9a1e4d0c"
+    },
+    {
+      "url": "/textures/pbr_5b1c6ae657d10c38524e.webp",
+      "bytes": 5834,
+      "sha256": "5b1c6ae657d10c38524ebc3592a6d20e68c67c2506c0c556373e5c1947e12198"
+    },
+    {
+      "url": "/textures/pbr_79a047800589ddbf9fd4.webp",
+      "bytes": 5674,
+      "sha256": "79a047800589ddbf9fd49cc20bd3e527325e21a883b2b18917d0052006cc2d0f"
+    },
+    {
+      "url": "/textures/pbr_a2d155cddadfe428f658.webp",
+      "bytes": 248404,
+      "sha256": "a2d155cddadfe428f658c33138b2d3fefada3e99b7cbf8f1431ab6cb98e35e56"
+    },
+    {
+      "url": "/textures/pbr_ec62f4f6ae9204426d71.webp",
+      "bytes": 575274,
+      "sha256": "ec62f4f6ae9204426d716f745330440be8da6248f6e599c7089ae1bcfc78647a"
+    },
+    {
+      "url": "/textures/pbr_3e4b20940d44fb21fb51.webp",
+      "bytes": 165538,
+      "sha256": "3e4b20940d44fb21fb514e49cdce77d44213cc9875c9dabb81bb7e7b49f7340d"
+    },
+    {
+      "url": "/textures/pbr_e750553be5737ca209aa.webp",
+      "bytes": 17510,
+      "sha256": "e750553be5737ca209aa33737436438e873e5477c71b8fda9d868d5485501710"
+    },
+    {
+      "url": "/textures/pbr_14baef9d4dded2e16b37.webp",
+      "bytes": 5496,
+      "sha256": "14baef9d4dded2e16b372d3aae9e2b1c0c2e08fa0f0204a0642c3f50e3e0f298"
+    },
+    {
+      "url": "/textures/pbr_9e54e7205a008e68591c.webp",
+      "bytes": 208,
+      "sha256": "9e54e7205a008e68591c5900f9ab5bb0175089fcb1e27563da53609acd8f6d1a"
+    },
+    {
+      "url": "/textures/pbr_ddc202897603d15d8af3.webp",
+      "bytes": 616492,
+      "sha256": "ddc202897603d15d8af3524a9158074d3f55b4aabb68e7df0834993d3a97caa3"
+    },
+    {
+      "url": "/textures/pbr_ff269fc5185de04267f0.webp",
+      "bytes": 553672,
+      "sha256": "ff269fc5185de04267f06d590589187d9e504e11005c6ef3ce8234fb171ea0b9"
+    },
+    {
+      "url": "/textures/pbr_376f82c8c6946ea93895.webp",
+      "bytes": 432696,
+      "sha256": "376f82c8c6946ea9389539d069be0b5112afd1df903f37613f2d4348690e9708"
+    },
+    {
+      "url": "/textures/pbr_5fbb7024acfc5a778db2.webp",
+      "bytes": 13786,
+      "sha256": "5fbb7024acfc5a778db28b1f6b5885af029f8dadeb9215913f243623f8bad8b0"
+    },
+    {
+      "url": "/textures/pbr_bf7b9cb46e385338061c.webp",
+      "bytes": 5754,
+      "sha256": "bf7b9cb46e385338061cf3a4cd6b1a646d77be6feefc37fcd8cdeac5a6392444"
+    },
+    {
+      "url": "/textures/pbr_50767be0612b1576afcd.webp",
+      "bytes": 5976,
+      "sha256": "50767be0612b1576afcd3df3c736e9514afe4e666b5fd9d0ec4f06d71dcb9764"
+    },
+    {
+      "url": "/textures/pbr_eb089bb4597e6414cb2c.webp",
+      "bytes": 5850,
+      "sha256": "eb089bb4597e6414cb2c8e4af198cc18e742682df9e63c8b2dea635e98b950b2"
+    },
+    {
+      "url": "/textures/pbr_7db588f24e00b49a3591.webp",
+      "bytes": 5426,
+      "sha256": "7db588f24e00b49a359191fb79cb2e4a640f64561956302dfd2e0e8f133508d3"
+    },
+    {
+      "url": "/textures/pbr_2bce93493f550029f022.webp",
+      "bytes": 5558,
+      "sha256": "2bce93493f550029f02294db3e8187834c55ceaafacde6e701b1803bf1fc7cc8"
+    },
+    {
+      "url": "/textures/pbr_b84ef089566f6242521d.webp",
+      "bytes": 5586,
+      "sha256": "b84ef089566f6242521d7d0bebc9262199330230791f7fc24d4aaff926a9905d"
+    }
+  ]
+}
